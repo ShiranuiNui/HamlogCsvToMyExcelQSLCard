@@ -12,7 +12,7 @@ namespace HamlogCsvToMyExcelQSLCard
         {
             var Worksheet = new ExcelControlWithPrint();
             var AllData = new List<LogData>();
-            using (var TextFile = new System.IO.StreamReader(@"C:\Users\Daiti Murota\Documents\Visual Studio 2015\Projects\HamlogCsvToMyExcelQSLCard\QSL-0729.csv", Encoding.Default))
+            using (var TextFile = new System.IO.StreamReader(@"C:\Users\Daiti Murota\Documents\QSLカード\CSV\QSL-0729.csv", Encoding.Default))
             {
                 while (TextFile.EndOfStream == false)
                 {
@@ -21,7 +21,7 @@ namespace HamlogCsvToMyExcelQSLCard
             }
             AllData = AllData.OrderBy(x => x.Callsign.Substring(2, 1)).ThenBy(x => x.Callsign.Substring(1, 1)).ThenBy(x => x.Callsign.Substring(3)).Select(x => x).ToList();
             AllData.ForEach(x => Console.WriteLine(x.Callsign));
-            var ExitCsvStream = new System.IO.StreamWriter(@"C:\Users\Daiti Murota\Documents\Visual Studio 2015\Projects\HamlogCsvToMyExcelQSLCard\QSL-0729New.csv",false,Encoding.Default);
+            var ExitCsvStream = new System.IO.StreamWriter(@"C:\Users\Daiti Murota\Documents\QSLカード\CSV\QSL-0729new.csv", false, Encoding.Default);
             AllData.ForEach(x => x.WriteToCsv(ExitCsvStream));
             ExitCsvStream.Close();
             foreach (LogData Data in AllData)
@@ -83,32 +83,43 @@ namespace HamlogCsvToMyExcelQSLCard
         }
         public void WriteToExcel(ExcelControlWithPrint WorkSheet)
         {
-            WorkSheet.WriteCell("B1", this.Callsign);
-            WorkSheet.WriteCell("A7", this.Year);
-            WorkSheet.WriteCell("B7", this.Month);
-            WorkSheet.WriteCell("C7", this.Day);
-            WorkSheet.WriteCell("D7", this.Jst);
-            WorkSheet.WriteCell("E7", this.SignalReport);
-            WorkSheet.WriteCell("G7", this.Frequency);
-            WorkSheet.WriteCell("G7", this.Mode);
-            WorkSheet.WriteCell("C11", this.Output);
+            this.WriteCallSign(WorkSheet);
+            WorkSheet.WriteCell("A8", this.Year);
+            WorkSheet.WriteCell("C8", this.Month);
+            WorkSheet.WriteCell("E8", this.Day);
+            WorkSheet.WriteCell("G8", this.Jst);
+            WorkSheet.WriteCell("I8", this.SignalReport);
+            WorkSheet.WriteCell("K8", this.Frequency);
+            WorkSheet.WriteCell("N8", this.Mode);
+            WorkSheet.WriteCell("D13", this.Output);
             if (this.IsGetQSL == true)
             {
-                WorkSheet.WriteCell("F8", "TNX");
+                WorkSheet.WriteCell("N9", "TNX");
             }
             else
             {
-                WorkSheet.WriteCell("F8", "PSE");
+                WorkSheet.WriteCell("N9", "PSE");
             }
             if (this.IsContest == true)
             {
-                WorkSheet.WriteCell("B13", "2016 NYP,TXH FB QSO!");
+                WorkSheet.WriteCell("C14", "2016 NYP,TXH FB QSO!");
             }
             else
             {
-                WorkSheet.WriteCell("B13", "TNX FB QSO!");
+                WorkSheet.WriteCell("C14", "TNX FB QSO!");
             }
             WorkSheet.PreviewAndPrint();
+        }
+        private void WriteCallSign(ExcelControlWithPrint WorkSheet)
+        {
+            WorkSheet.WriteCell("A2", this.Callsign);
+            char[] CallsignSepareted = this.Callsign.ToCharArray();
+            WorkSheet.WriteCell("F1", CallsignSepareted[0].ToString());
+            WorkSheet.WriteCell("H1", CallsignSepareted[1].ToString());
+            WorkSheet.WriteCell("J1", CallsignSepareted[2].ToString());
+            WorkSheet.WriteCell("L1", CallsignSepareted[3].ToString());
+            WorkSheet.WriteCell("N1", CallsignSepareted[4].ToString());
+            WorkSheet.WriteCell("P1", CallsignSepareted[5].ToString());
         }
         public void WriteToCsv(System.IO.StreamWriter TargetFile)
         {
@@ -130,7 +141,7 @@ namespace HamlogCsvToMyExcelQSLCard
     {
         public void PreviewAndPrint()
         {
-            this.WorkSheet.PrintOutEx(1, 1, 1, true);
+            this.WorkSheet.PrintOutEx(1, 1, 1, true, "Canon MG7100 series Printer");
         }
     }
 }
