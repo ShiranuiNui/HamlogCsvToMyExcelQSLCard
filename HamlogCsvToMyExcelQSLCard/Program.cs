@@ -12,7 +12,7 @@ namespace HamlogCsvToMyExcelQSLCard
         {
             var Worksheet = new ExcelControlWithPrint();
             var AllData = new List<LogData>();
-            using (var TextFile = new System.IO.StreamReader(@"C:\Users\Daiti Murota\Documents\Visual Studio 2015\Projects\HamlogCsvToMyExcelQSLCard\QSL-0729.csv", Encoding.Default))
+            using (var TextFile = new System.IO.StreamReader(@"C:\Users\USE\Documents\QSLカード\CSVファイル\QSL-0810.csv", Encoding.Default))
             {
                 while (TextFile.EndOfStream == false)
                 {
@@ -21,7 +21,7 @@ namespace HamlogCsvToMyExcelQSLCard
             }
             AllData = AllData.OrderBy(x => x.Callsign.Substring(2, 1)).ThenBy(x => x.Callsign.Substring(1, 1)).ThenBy(x => x.Callsign.Substring(3)).Select(x => x).ToList();
             AllData.ForEach(x => Console.WriteLine(x.Callsign));
-            var ExitCsvStream = new System.IO.StreamWriter(@"C:\Users\Daiti Murota\Documents\Visual Studio 2015\Projects\HamlogCsvToMyExcelQSLCard\QSL-0729New.csv",false,Encoding.Default);
+            var ExitCsvStream = new System.IO.StreamWriter(@"C:\Users\USE\Documents\QSLカード\CSVファイル\QSL-0810New.csv", false,Encoding.Default);
             AllData.ForEach(x => x.WriteToCsv(ExitCsvStream));
             ExitCsvStream.Close();
             foreach (LogData Data in AllData)
