@@ -40,6 +40,12 @@
             <param name="Range">セル番地「"A1"」形式</param>
             <param name="Value">セルに入力したい値</param>
         </member>
+        <member name="M:ShiranuiSayaka.Libraries.ExcelControl.PrintSheet(System.Boolean)">
+            <summary>
+            表示中のExcelシートの最初のシートを１枚プリントアウトします
+            </summary>
+            <param name="IsNeedtoPreview">プレビューが必要ならばTrue、必要なければFalse</param>
+        </member>
         <member name="T:ShiranuiSayaka.Libraries.AccessControl">
             <summary>
             AccessをOLEDBで操作します。
