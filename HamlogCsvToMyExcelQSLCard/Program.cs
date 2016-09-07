@@ -81,10 +81,10 @@ namespace HamlogCsvToMyExcelQSLCard
                         this.Output = "10W";
                         break;
                     case "FM":
-                        this.Output = "18W";
+                        this.Output = "20W";
                         break;
                     case "SSB":
-                        this.Output = "20W";
+                        this.Output = "50W";
                         break;
                 }
             }
