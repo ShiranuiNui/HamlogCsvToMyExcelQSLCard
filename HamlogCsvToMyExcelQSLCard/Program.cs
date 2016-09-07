@@ -12,8 +12,8 @@ namespace HamlogCsvToMyExcelQSLCard
         {
             var Worksheet = new MyLiblary.ExcelControl();
             var AllData = new List<LogData>();
-            const string FILENAME = "160102-160813Plus";
-            using (var TextFile = new System.IO.StreamReader($@"C:\Users\Daiti Murota\Documents\QSLカード\CSV\{FILENAME}.csv", Encoding.Default))
+            const string PATHNAME = "160814";
+            using (var TextFile = new System.IO.StreamReader($@"C:\Users\Daiti Murota\Documents\QSLカード\CSV\{PATHNAME}\{PATHNAME}.csv", Encoding.Default))
             {
                 while (TextFile.EndOfStream == false)
                 {
@@ -22,7 +22,7 @@ namespace HamlogCsvToMyExcelQSLCard
             }
             //AllData = AllData.OrderBy(x => x.Callsign.Substring(2, 1)).ThenBy(x => x.Callsign.Substring(1, 1)).ThenBy(x => x.Callsign.Substring(3)).Select(x => x).ToList();
             //AllData.ForEach(x => Console.WriteLine(x.Callsign));
-            using (var ExitCsvStream = new System.IO.StreamWriter($@"C:\Users\Daiti Murota\Documents\QSLカード\CSV\{FILENAME}new.csv", false, Encoding.Default))
+            using (var ExitCsvStream = new System.IO.StreamWriter($@"C:\Users\Daiti Murota\Documents\QSLカード\CSV\{PATHNAME}\{PATHNAME}new.csv", false, Encoding.Default))
             {
                 AllData.ForEach(x => x.WriteToCsv(ExitCsvStream));
                 ExitCsvStream.Close();
@@ -32,7 +32,7 @@ namespace HamlogCsvToMyExcelQSLCard
                 Data.WriteToExcel(Worksheet);
             }
             AllData = AllData.OrderBy(x => x.Callsign.Substring(2, 1)).ThenBy(x => x.Callsign.Substring(1, 1)).ThenBy(x => x.Callsign.Substring(3)).Select(x => x).ToList();
-            using (var ExitOrderCallsign = new System.IO.StreamWriter($@"C:\Users\Daiti Murota\Documents\QSLカード\CSV\{FILENAME}Order.txt", false, Encoding.Default))
+            using (var ExitOrderCallsign = new System.IO.StreamWriter($@"C:\Users\Daiti Murota\Documents\QSLカード\CSV\{PATHNAME}\{PATHNAME}Order.txt", false, Encoding.Default))
             {
                 AllData.ForEach(x => ExitOrderCallsign.WriteLine(x.Callsign));
             }
